@@ -6,6 +6,6 @@ fi
 bookmark=$(cat $BOOKMARKS/bookmark_titles | dmenu -i -l 30)
 [[ -n $bookmark ]] || exit 
 idx=$(grep -nF "$bookmark" $BOOKMARKS/bookmark_titles | cut -f1 -d:)
-[[ -n $idx ]] && sed -n "$idx{p;q}" $BOOKMARKS/bookmarks | xargs -I {} browse "{}" && exit || 
+[[ -n $idx ]] && sed -n "$idx{p}" $BOOKMARKS/bookmarks | browse && exit || 
 	curl -s --head  --request GET "$bookmark" | grep "HTTP" > /dev/null && browse "$bookmark" && exit || 
 	browse "https://duckduckgo.com/?q=""$bookmark"

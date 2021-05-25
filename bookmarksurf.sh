@@ -3,7 +3,13 @@ alias browse="$BROWSER"
 if [ "$BROWSER" = "surf" ]; then
 	alias browse="tabbed -r2 $BROWSER -e x"
 fi
-bookmark=$(sed "a\search" $BOOKMARKS/bookmark_titles | dmenu -i -l 30)
+
+if [ -s $BOOKMARKS/bookmark_titles ]; then
+	bookmark=$(sed "a\search" $BOOKMARKS/bookmark_titles | dmenu -i -l 30)
+else 
+	bookmark=$(printf "search" | dmenu -i -p "Choose search to to go search menu")
+fi
+
 [[ -n $bookmark ]] || exit 
 idx=$(grep -nF "$bookmark" $BOOKMARKS/bookmark_titles | cut -f1 -d:)
 if [ "$bookmark" = "search" ]; then

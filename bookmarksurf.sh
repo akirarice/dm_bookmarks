@@ -5,7 +5,7 @@ if [ "$BROWSER" = "surf" ]; then
 fi
 
 if [ -s $BOOKMARKS/bookmark_titles ]; then
-	bookmark=$(sed "\$a\YouTube\\nDuckDuckGo\\nSearx\\n1337x\\nbol" $BOOKMARKS/bookmark_titles | dmenu -i -l 30)
+	bookmark=$(sed "\$a\YouTube\\nDuckDuckGo\\nSearx\\n1337x\\nbol" $BOOKMARKS/bookmark_titles | dmenu -i -l 15)
 else 
 	bookmark=$(printf "YouTube\\nDuckDuckGo\\nSearx\\n1337x\\nbol" | dmenu -i -p "Search/URL")
 fi
@@ -22,7 +22,7 @@ case $bookmark in
 		link=$(sed "$idx"'!d' $BOOKMARKS/bookmarks)
 		browse $link 
 	else 
-		curl -s --head  --request --fail "$bookmark" | grep "HTTP" > /dev/null && browse "$bookmark" && exit || 
+		curl -s --head  --request --fail "$bookmark" && browse "$bookmark" && exit || 
 		browse "https://duckduckgo.com/?q=""$bookmark" && exit
 	fi
 esac

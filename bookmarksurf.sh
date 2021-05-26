@@ -5,7 +5,7 @@ if [ "$BROWSER" = "surf" ]; then
 fi
 
 if [ -s $BOOKMARKS/bookmark_titles ]; then
-	bookmark=$(sed "\$a\search" $BOOKMARKS/bookmark_titles | dmenu -i -l 30)
+	bookmark=$(sed "\$a\YouTube\\nDuckDuckGo\\nSearx\\n1337x\\nbol" $BOOKMARKS/bookmark_titles | dmenu -i -l 30)
 else 
 	bookmark=$(printf "search" | dmenu -i -p "Choose search for search menu" -l 30)
 fi
@@ -18,7 +18,11 @@ case $bookmark in
 	Searx) choice=$(dmenu -i -p "Searx") && browse "https://searx.bar/search?q=""$choice" && exit;;
 	1337x) choice=$(dmenu -i -p " 1337x") && browse "https://1337x.to/search/""$choice""/1/" && exit;;
 	bol) choice=$(dmenu -i -p " bol") && browse "https://www.bol.com/nl/s/?searchtext=""$choice" && exit;;
-	*) [[ $idx ]] && sed $idx'd' $BOOKMARKS/bookmarks | xargs -I {} browse "{}" && exit || 
+	*) if [ "$idx" ]; then 
+		link=$(sed "$idx"'!d' $BOOKMARKS/bookmarks)
+		browse $link 
+	else 
 		curl -s --head  --request GET "$bookmark" | grep "HTTP" > /dev/null && browse "$bookmark" && exit || 
-		browse "https://duckduckgo.com/?q=""$bookmark" && exit;;
+		browse "https://duckduckgo.com/?q=""$bookmark" && exit
+	fi
 esac

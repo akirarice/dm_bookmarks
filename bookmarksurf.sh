@@ -7,7 +7,7 @@ fi
 if [ -s $BOOKMARKS/bookmark_titles ]; then
 	bookmark=$(sed "\$a\YouTube\\nDuckDuckGo\\nSearx\\n1337x\\nbol" $BOOKMARKS/bookmark_titles | dmenu -i -l 30)
 else 
-	bookmark=$(printf "search" | dmenu -i -p "Choose search for search menu" -l 30)
+	bookmark=$(printf "YouTube\\nDuckDuckGo\\nSearx\\n1337x\\nbol" | dmenu -i -p "Search/URL")
 fi
 [[ -n $bookmark ]] || exit
 idx=$(grep -nF "$bookmark" $BOOKMARKS/bookmark_titles | cut -f1 -d:)

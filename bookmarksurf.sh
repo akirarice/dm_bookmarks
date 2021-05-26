@@ -22,7 +22,7 @@ case $bookmark in
 		link=$(sed "$idx"'!d' $BOOKMARKS/bookmarks)
 		browse $link 
 	else 
-		curl -s --head  --request GET "$bookmark" | grep "HTTP" > /dev/null && browse "$bookmark" && exit || 
+		curl -s --head  --request --fail "$bookmark" | grep "HTTP" > /dev/null && browse "$bookmark" && exit || 
 		browse "https://duckduckgo.com/?q=""$bookmark" && exit
 	fi
 esac

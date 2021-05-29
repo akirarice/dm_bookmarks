@@ -9,8 +9,9 @@ while true; do
 		"Switch Browser") newbrowser=$(printf "brave\\nsurf\\nvimb" | dmenu -i -p "Choose Browser") ;; 
 		Bookmarks) 
 			if [ -s $BOOKMARKS/bookmark_titles ]; then 
-				choice=$(cat $BOOKMARKS/bookmark_titles | dmenu -i -l 10) 
-				idx=$(grep -nF "$choice" $BOOKMARKS/bookmark_titles | cut -f1 -d:) 
+				entry=$(cat $BOOKMARKS/bookmark_titles | dmenu -i -l 10) 
+				idx=$(grep -nx "$entry" $BOOKMARKS/bookmark_titles | cut -f1 -d:)
+				[[ $idx ]] && link=$(sed "$idx"'!d' $BOOKMARKS/bookmarks) && break || link="$entry" ; break
 			else 
 				link=$(dmenu -p "Search/URL") ; break
 			fi ;;

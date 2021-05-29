@@ -5,7 +5,7 @@ title=$(wget -qO- $bookmark |
 
 [ -z "$title" ] && notify-send "url not found" && exit
 
-if grep -qF "$title" $BOOKMARKS/bookmark_titles; then
+if grep -qx "$title" $BOOKMARKS/bookmark_titles; then
 	notify-send "'$title' already in bookmarks"
 else
 	request=$(printf "Yes\\nNo" | dmenu -i -p "Add $bookmark to bookmarks?") || exit

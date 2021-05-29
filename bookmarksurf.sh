@@ -7,8 +7,13 @@ while true; do
 		1337x) choice=$(dmenu -p " 1337x") ; [[ -n $choice ]] && link="https://1337x.to/search/""$choice""/1/" || exit ; break ;; 
 		bol) choice=$(dmenu -p " bol") ; [[ -n $choice ]] && link="https://www.bol.com/nl/s/?searchtext=""$choice" || exit ; break ;; 
 		"Switch Browser") newbrowser=$(printf "brave\\nsurf\\nvimb" | dmenu -i -p "Choose Browser") ;; 
-		Bookmarks) choice=$(cat $BOOKMARKS/bookmark_titles | dmenu -i -l 10) ; idx=$(grep -nF "$choice" $BOOKMARKS/bookmark_titles | cut -f1 -d:)  
-			[[ "$idx" ]] && link=$(sed "$idx"'!d' $BOOKMARKS/bookmarks) && break || link="$bookmark" && break ;; 
+		Bookmarks) 
+			if [ -s $BOOKMARKS/bookmark_titles ]; then 
+				choice=$(cat $BOOKMARKS/bookmark_titles | dmenu -i -l 10) 
+				idx=$(grep -nF "$choice" $BOOKMARKS/bookmark_titles | cut -f1 -d:) 
+			else 
+				link=$(dmenu -p "Search/URL") ; break
+			fi ;;
 		*) link="$bookmark" ; break ;;
 	esac
 done

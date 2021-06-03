@@ -8,7 +8,7 @@ title=$(wget -qO- $bookmark |
 if grep -qx "$title" $BOOKMARKS/bookmark_titles; then
 	notify-send "'$title' already in bookmarks"
 else
-	request=$(printf "Yes\\nNo" | dmenu -i -p "Add $bookmark to bookmarks?") || exit
+	request=$(printf "Yes\\nNo" | dmenu -h 40 -i -p "Add $bookmark to bookmarks?") || exit
                 [ "$request" = "Yes" ] && echo "$bookmark" >> $BOOKMARKS/bookmarks && echo "$title" >> $BOOKMARKS/bookmark_titles && 
 			notify-send "$title added to bookmarks"
 fi

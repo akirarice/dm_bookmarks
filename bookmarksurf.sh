@@ -6,7 +6,7 @@ while true; do
 		Searx) choice=$(dmenu -h 40 -p " Searx") ; [[ -n $choice ]] && link="https://searx.bar/search?q=""$choice" || exit ; break ;; 
 		1337x) choice=$(dmenu -h 40 -p " 1337x") ; [[ -n $choice ]] && link="https://1337x.to/search/""$choice""/1/" || exit ; break ;; 
 		bol) choice=$(dmenu -h 40 -p " bol") ; [[ -n $choice ]] && link="https://www.bol.com/nl/s/?searchtext=""$choice" || exit ; break ;; 
-		"Switch Browser") newbrowser=$(printf "brave\\nsurf\\nvimb" | dmenu -h 40 -i -p "Choose Browser") ;; 
+		"Switch Browser") newbrowser=$(printf "brave\\nsurf\\nicecat" | dmenu -h 40 -i -p "Choose Browser") ;; 
 		Bookmarks) 
 			if [ -s $BOOKMARKS/bookmark_titles ]; then 
 				entry=$(cat $BOOKMARKS/bookmark_titles | dmenu -i -l 10) 
@@ -19,6 +19,6 @@ while true; do
 	esac
 done
 [[ -n $link ]] || exit ; [[ -n $newbrowser ]] || newbrowser="$BROWSER"
-[[ "$newbrowser" = "surf" ]] || [[ "$newbrowser" = "vimb" ]] && newbrowser="tabbed -r2 $newbrowser -e x"
+[[ "$newbrowser" = "surf" ]] || [[ "$newbrowser" = "vimb" ]] && newbrowser="tabbed -cr2 $newbrowser -e x"
 [[ -n $choice ]] || [[ $idx ]] && $newbrowser "$link" && exit || 
 	curl -s --head  --request --fail "$link" && $newbrowser "$link" || $newbrowser "https://duckduckgo.com/?q=""$link"

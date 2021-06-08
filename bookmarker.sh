@@ -1,5 +1,5 @@
 #!/bin/sh
-bookmark=$(xclip -o -selection clipboard)
+bookmark=$(xclip -o -selection p)
 title=$(wget -qO- $bookmark |
   gawk -v IGNORECASE=1 -v RS='</title' 'RT{gsub(/.*<title[^>]*>/,"");print;exit}')
 
